@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class RedController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    GameObject player;
+    Vector3 playerLocation;
+    UnityEngine.AI.NavMeshAgent navAgent;
+    [SerializeField] float speed;
+
     void Start()
     {
-        
+        //player = GameObject.FindWithTag("Player");
+        player = GameObject.Find("Green");
+        navAgent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        playerLocation = player.transform.position;
+    }
+    
+    void FixedUpdate()
+    {
+        if (player != null)
+        {
+            GetPlayer();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void GetPlayer()
     {
-        
+        navAgent.speed = speed;
+        playerLocation = player.transform.position;
+        navAgent.destination = playerLocation;
     }
 }
